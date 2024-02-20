@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" th:href="@{/libraries/bootstrap-4.6.2-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div class="container pt-2">
+        <h1>Quản lý cửa hàng</h1>
+        <ul class="mt-3 d-flex p-4 justify-content-around" style="background-color: #ccc">
+            <li><a th:href="@{/category}">Quản lý danh mục</a></li>
+            <li><a th:href="@{/product}">Quản lý Sản phẩm</a></li>
+            <li><a th:href="@{/bill}">Quản lý đặt hàng</a></li>
+        </ul>
+        <div>
+            <a th:href="@{/product/addProduct}" class="add font-weight-bold float-right p-2 m-2 border-0 bg-success text-white">
+                Thêm mới <i class="fa-solid fa-plus"></i></a>
+        </div>
+        <p class="text-success" th:if="${message}" th:text="${message}"></p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product, rowStat  : ${products}">
+                    <td th:text="${rowStat.count}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.quantity}"></td>
+                    <td th:text="${product.categoryId}"></td>
+                    <td>
+                        <a th:href="@{/product/update/{id}(id=${product.id})}"
+                           class="edit-button font-weight-bold text-info">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a th:href="@{/product/delete/{id}(id = ${product.id})}"
+                           class="delete-button font-weight-bold text-danger">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex flex-row">
+            <a th:each="index : ${#numbers.sequence(1, totalPage)}"
+               th:href="@{/product?page={page}(page=${index})}"
+               th:class="|btn ${index == (currentPage + 1) ? 'btn-success' : ''}|" th:text="${index}"></a>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var elements = document.getElementsByClassName('delete-button')
+    for (let item of elements) {
+        item.addEventListener('click', function (event) {
+            if(!confirm('Chắc chưa')) {
+                event.preventDefault()
+            }
+        })
+    }
+</script>
+</html>

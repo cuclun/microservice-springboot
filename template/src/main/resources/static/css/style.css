@@ -1,0 +1,69 @@
+/*-------------------------------------------------
+GLOBALS CLASSES
+-------------------------------------------------*/
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    color: #7c7c7c;
+    text-align: center;
+    /*overflow-x: hidden;*/
+}
+
+img {
+    border: none;
+}
+
+h1 {
+    font-size: 26px;
+    color: blue;
+    font-family: 'Economica', sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin: 20px;
+}
+
+h2 {
+    font-family: 'Economica', sans-serif;
+    font-size: 19px;
+    color: #d1869b;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+p {
+    line-height: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #858585;
+}
+
+a:hover {
+    color: #d1869b;
+}
+
+li {
+    list-style: none;
+}
+
+.shopping {
+    position: relative;
+}
+
+.category {
+    position: fixed;
+    top: 72px;
+    margin: 0;
+}
+
+.order {
+    margin-right: 15px;
+    margin-left: 270px;
+    padding: 0;
+}

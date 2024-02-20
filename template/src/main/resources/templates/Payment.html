@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+    <link rel="stylesheet" th:href="@{/libraries/bootstrap-4.6.2-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <ul class="d-flex p-3 justify-content-around " style="background-color: #ccc">
+            <li><a th:href="@{/index}">Mua sắm</a></li>
+            <li><a href="#">Giỏ hàng</a></li>
+        </ul>
+    </div>
+    <h1>Điền thông tin</h1>
+    <form th:action="@{/payment/{id}(id = ${product.id})}" th:object="${bill}" method="POST">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${product.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="text-danger" th:if="${message}" th:text="${message}"></p>
+        <input type="hidden" name="id" th:field="*{id}">
+        <div class="form-group row">
+            <label for="name">Tên người nhận</label>
+            <input type="text" class="form-control" id="name" th:field="*{fullName}" required>
+        </div>
+        <div class="form-group row">
+            <label for="phone">Số điện thoại</label>
+            <input type="text" id="phone" name="phone" class="form-control" th:field="*{phone}" required>
+        </div>
+        <div class="form-group row">
+            <label for="address">Địa chỉ</label>
+            <input type="text" class="form-control" name="address" id="address" th:field="*{address}" required>
+        </div>
+        <div class="form-group row">
+            <label for="quantity">Số lượng</label>
+            <input type="number" class="form-control" name="quantity" id="quantity"
+                   value="0" onchange="onChange(this, 12000)" min="1" th:field="*{quantity}"  required="">
+        </div>
+        <div class="form-group row">
+            <label for="totalAmount">Tổng tiền</label>
+            <input type="text" class="form-control" id="totalAmount" disabled readonly>
+        </div>
+        <button type="submit" class="btn btn-success">Thanh toán</button>
+    </form>
+</div>
+</body>
+
+<script>
+    const onChange = (e, price) => {
+        document.getElementById('totalAmount').value = e.value * price
+    }
+</script>
+
+</html>

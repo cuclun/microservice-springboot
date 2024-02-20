@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category</title>
+    <link rel="stylesheet" th:href="@{/libraries/bootstrap-4.6.2-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container pt-2">
+
+    <h1>Quản lý cửa hàng</h1>
+    <ul class="mt-3 d-flex p-4 justify-content-around" style="background-color: #ccc">
+        <li><a th:href="@{/category}">Quản lý danh mục</a></li>
+        <li><a th:href="@{/product}">Quản lý Sản phẩm</a></li>
+        <li><a th:href="@{/bill}">Quản lý đặt hàng</a></li>
+    </ul>
+    <div><a th:href="@{/category/addCategory}"
+            class="add font-weight-bold float-right p-2 m-2 border-0 bg-success text-white">
+        Thêm mới <i class="fa-solid fa-plus"></i></a></div>
+    <p class="text-success ml-4 mt-2" th:if="${message}" th:text="${message}"></p>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category, rowStat : ${categories}">
+            <td th:utext="${rowStat.count}"></td>
+            <td th:utext="${category.name}"></td>
+            <td>
+                <a th:href="@{/category/update/{id}(id = ${category.id})}"
+                   class="edit-button font-weight-bold text-info">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <a th:href="@{/category/delete/{id}(id = ${category.id})}"
+                   class="delete-button font-weight-bold text-danger">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+<script type="text/javascript">
+    var elementsDelete = document.getElementsByClassName('delete-button')
+    for (let item of elementsDelete) {
+        item.addEventListener('click', function (event) {
+            if (!confirm('Chắc chưa')) {
+                event.preventDefault()
+            }
+        })
+    }
+</script>
+
+</html>

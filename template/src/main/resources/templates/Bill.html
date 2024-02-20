@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bill</title>
+    <link rel="stylesheet" th:href="@{/libraries/bootstrap-4.6.2-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<div class="container pt-2">
+    <h1>Quản lý cửa hàng</h1>
+    <ul class="mt-3 d-flex p-4 justify-content-around" style="background-color: #ccc">
+        <li><a th:href="@{/category}">Quản lý danh mục</a></li>
+        <li><a th:href="@{/product}">Quản lý Sản phẩm</a></li>
+        <li><a th:href="@{/bill}">Quản lý đặt hàng</a></li>
+    </ul>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bill, rowStat  : ${bills}">
+            <td th:text="${rowStat.count}"></td>
+            <td th:text="${bill.fullName}"></td>
+            <td th:text="${bill.address}"></td>
+            <td th:text="${bill.phone}"></td>
+            <td th:text="${bill.productId}"></td>
+            <td th:text="${bill.quantity}"></td>
+
+            <td>
+                <a onclick="return confirmDelete()" th:href="@{/bill/delete/{id}(id = ${bill.id})}"
+                   class="delete-button font-weight-bold text-danger">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+<script type="text/javascript">
+    function confirmDelete() {
+        if (confirm('Bạn chắc chắn muốn xóa không?')) {
+            alert('Hóa đơn đã được xóa thành công');
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+
+</html>
